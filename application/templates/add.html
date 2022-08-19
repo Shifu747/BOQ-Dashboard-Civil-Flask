@@ -1,0 +1,67 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="col-xs-10 col-sm-6 col-md-6 ml-auto mr-auto">
+    <h2>Add Bills</h2>
+    <div class="card card-style mb-2">
+        <div class="card-body">
+            <form action="" method="POST">
+                {{ form.csrf_token() }}  <!-- for secret key  -->
+                <fieldset class="form-group">
+                    <legend class="mb-4">Bills Of Quantity</legend>
+
+                    <div class="form-group">
+                        {{ form.item.label(class="form-control-label") }}
+                        {% if form.item.errors %}
+                        {{ form.item(class="form-control form-control-sm is-invalid") }}
+                        {% for error in form.item.errors %}
+                        <div class="invalid-feedback">
+                            <span>{{error}}</span>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        {{ form.item(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+            
+                    <div class="form-group">
+                        {{ form.quantity.label(class="form-control-label") }}
+                        {% if form.quantity.errors %}
+                        {{ form.quantity(class="form-control form-control-sm is-invalid") }}
+                        {% for error in form.quantity.errors %}
+                        <div class="invalid-feedback">
+                            <span>{{error}}</span>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        {{ form.quantity(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+            
+                    <div class="form-group">
+                        {{ form.unit.label(class = "form-control-label") }}
+                        {{ form.unit(class = "form-control form-control-sm") }}
+                    </div>
+            
+                    <div class="form-group">
+                        {{ form.rate.label(class="form-control-label") }}
+                        {% if form.rate.errors %}
+                        {{ form.rate(class="form-control form-control-sm is-invalid") }}
+                        {% for error in form.rate.errors %}
+                        <div class="invalid-feedback">
+                            <span>{{error}}</span>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        {{ form.rate(class="form-control form-control-sm") }}
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group border-bottom pb-3">
+                        {{ form.submit(class="btn btn-outline-info my-2")}}
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="col-sm-10 ml-auto mr-auto">
+        <H2>BOQ - Table</H2>
+        <table class="table">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Item</th>
+                <th scope="col">Date</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Unit</th>
+                <th scope="col">Rate(per unit BDT)</th>
+                <th scope="col">Total(BDT)</th>
+                <th scope="col">Delete</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {% for entry in entries %}
+              <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{entry.item}}</td>
+                <td>{{entry.date.strftime('%m-%d-%Y')}}</td>
+                <td>{{entry.quantity}}</td>
+                <td>{{entry.unit}}</td>
+                <td>{{entry.rate}}</td>
+                <td>{{entry.total}}</td>
+                <td><a href="{{url_for('delete', entry_id=entry.id)}}" class="btn btn-outline-danger btn-sm">Delete</a></td>
+
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+    </div>
+{% endblock content %}
