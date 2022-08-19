@@ -1,13 +1,13 @@
 {% extends 'layout.html' %}
 {% block content %}
 <div class="col-xs-10 col-sm-6 col-md-6 ml-auto mr-auto">
-    <h2>Add Bills</h2>
+    <h2>Entry</h2>
     <div class="card card-style mb-2">
         <div class="card-body">
             <form action="" method="POST">
                 {{ form.csrf_token() }}  <!-- for secret key  -->
                 <fieldset class="form-group">
-                    <legend class="mb-4">Bills Of Quantity</legend>
+                    <legend class="mb-4">Add new bill</legend>
 
                     <div class="form-group">
                         {{ form.item.label(class="form-control-label") }}

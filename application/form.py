@@ -7,10 +7,10 @@ class UserInputForm(FlaskForm):
     quantity = IntegerField('Quantity', validators=[DataRequired()])
     unit = SelectField('Unit', validators=[DataRequired()],
                             choices=[('kg', 'kg'),
-                                    ('m^3', 'm^3'),
-                                    ('m^2', 'm^2')
+                                    ('m³', 'm³'),
+                                    ('m²', 'm²')
                         ])
-    rate = IntegerField('Rate',validators=[DataRequired()])
+    rate = IntegerField('Rate(per unit BDT)',validators=[DataRequired()])
 
     submit = SubmitField('Generate Report')
 

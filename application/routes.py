@@ -4,6 +4,8 @@ from flask import render_template, flash, redirect, url_for, get_flashed_message
 from application.form import UserInputForm
 from application.models import Boq
 import json
+import sqlite3
+import pandas as pd
 
 
 @app.route('/index')
@@ -43,7 +45,32 @@ def dashboard():
         else:
             total_bill.append(total)
         date_labels.append(date.strftime('%d-%m-%Y'))
+
+    items = db.session.query(db.func.sum(Boq.total), Boq.item).group_by(Boq.item).order_by(Boq.item).all()
+
+    item_labels = []
+    item_bill = []
+    for bill, name in items:
+        if name not in item_labels:
+            item_labels.append(name)
+        else:
+            continue
+        item_bill.append(bill)
+    
     return render_template('dashboard.html',
             total_bill = json.dumps(total_bill),
-            date_labels = json.dumps(date_labels)
+            date_labels = json.dumps(date_labels),
+            item_bill = json.dumps(item_bill),
+            item_labels = json.dumps(item_labels)
+
     )
+
+@app.route('/tocsv')
+def tocsv():
+    path = "D:\\Flask\\BOQ-Dashboard\\application"
+    database = path + "\\boqDB.db"
+    cnx = sqlite3.connect(database)
+    df = pd.read_sql_query("SELECT * FROM boq", cnx)
+    df.to_csv("D:\\Flask\\BOQ-Dashboard\\application\\boq.csv", index=False)
+    flash('Exporting was successful', 'success')
+    return redirect(url_for('index'))
